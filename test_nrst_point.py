@@ -30,8 +30,8 @@ def plot_points(all_points, pt_to_query, nrst_pt, radius):
 
 
 def main():
-    create_test_file(num_of_points=20000, outfile_name="test.csv")
-    pts, N = read_test_file("test.csv")
+    create_test_file(num_of_points=20000, outfile_name="data/test.csv")
+    pts, N = read_test_file("data/test.csv")
     tree = KDTree(pts)
 
     # Draw a random point from the point list
