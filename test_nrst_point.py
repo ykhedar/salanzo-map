@@ -37,7 +37,11 @@ def kdtree_method(pts, pt_to_query):
     nrst_pt = pts[answer_int[-1]]
     return nrst_pt
 
-    
+
+def rtree_method():
+    pass
+
+
 def main():
     create_test_file(num_of_points=20000, outfile_name="data/test.csv")
     pts, N = read_test_file("data/test.csv")
