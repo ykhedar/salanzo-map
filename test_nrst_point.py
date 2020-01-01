@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 # Generate random x,y points
 from scipy.spatial import KDTree
@@ -29,16 +30,30 @@ def plot_points(all_points, pt_to_query, nrst_pt, radius):
     plt.show()
 
 
+def kdtree_method(pts, pt_to_query):
+    # Create a KD Tree
+    tree = KDTree(pts)
+    answer_floats, answer_int = tree.query(np.array(pt_to_query), k=2)
+    nrst_pt = pts[answer_int[-1]]
+    return nrst_pt
+
+    
 def main():
     create_test_file(num_of_points=20000, outfile_name="data/test.csv")
     pts, N = read_test_file("data/test.csv")
-    tree = KDTree(pts)
 
     # Draw a random point from the point list
     index = np.random.randint(low=0, high=N)
     pt_to_query = pts[index]
-    answer_floats, answer_int = tree.query(np.array(pt_to_query), k=2)
-    nrst_pt = pts[answer_int[-1]]
+
+    # Method 1: KDTree based nearest neighbour search
+    time1 = time.time()
+    nrst_pt = kdtree_method(pts, pt_to_query)
+    time2 = time.time()
+    print("Time for KDTree: ", time2-time1)
+
+    # Method 2: RTRee based nearest neighbour search
+
 
     # Select a sub-region around query point to plot.
     RADIUS = 2000
