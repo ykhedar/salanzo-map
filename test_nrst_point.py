@@ -20,7 +20,7 @@ def read_test_file(filename):
     data = np.loadtxt(fname=filename, delimiter=",")
     print(type(data), data.shape)
     print(data)
-    return data, data.shape[0]
+    return data[:, 1:3], data.shape[0]
 
 
 def plot_points(all_points, pt_to_query, nrst_pt, radius):
@@ -46,8 +46,10 @@ def rtree_method():
 
 
 def main():
-    create_test_file(num_of_points=20000, outfile_name="data/test.csv")
-    pts, N = read_test_file("data/test.csv")
+    #create_test_file(num_of_points=20000, outfile_name="data/test.csv")
+    pts, N = read_test_file("data/test2.csv")
+    print(N)
+    print(pts)
 
     # Draw a random point from the point list
     index = np.random.randint(low=0, high=N)
@@ -63,7 +65,7 @@ def main():
 
 
     # Select a sub-region around query point to plot.
-    RADIUS = 2000
+    RADIUS = 0.2
     plot_points(pts, pt_to_query, nrst_pt, RADIUS)
 
 
