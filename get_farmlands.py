@@ -15,7 +15,7 @@ def buildQuery(south, west, north, east):
 def getResponse(url, query):
     response = requests.get(url, params={'data': query})
     data = response.json()
-    return [{'id': i['id'], 'lat': i['center']['lat'], 'lon': i['center']['lon']} for i in data['elements'] if i['type'] == 'way']
+    return [{'id': i['id'], 'center': [i['center']['lat'], i['center']['lon']]} for i in data['elements'] if i['type'] == 'way']
 
 
 def getLongLat(bearing, distance, latitude, longitude, reqLatLon):
