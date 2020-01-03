@@ -4,6 +4,7 @@
 import requests
 import math
 from rtree import index
+import csv
 
 
 def build_query(south, west, north, east):
@@ -43,7 +44,7 @@ def getLongLat(bearing, distance, latitude, longitude, reqLatLon):
 
 
 def json_to_csv(data):
-    import csv
+
     # open a file for writing
     employ_data = open('data/test2.csv', 'w')
 
@@ -63,15 +64,16 @@ def get_data(latitude, longitude):
     if south != 'false' and west != 'false' and north != 'false' and east != 'false':
         overpass_url, overpass_query = build_query(south, west, north, east)
         data = get_csv_data(overpass_url, overpass_query)
-        json_to_csv(data)
         return data
     else:
         print("returned south or west or north or east as false")
         return False
 
 
-def get_nearest_point(latitude, longitude):
+def get_nearest_point(latitude=None, longitude=None, csv_write=False):
     data = get_data(latitude, longitude)
+    if csv_write:
+        json_to_csv(data)
 
     idx = index.Index()
     for d in data:

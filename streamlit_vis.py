@@ -13,7 +13,7 @@ def get_current_position():
 # Read the csv file into a pandas data frame
 curr_lat, curr_long = get_current_position()
 
-nrst_pt = get_farmlands.get_nearest_point(curr_lat, curr_long)
+nrst_pt = get_farmlands.get_nearest_point(curr_lat, curr_long, True)
 nrst_pt_df = pd.DataFrame([[1, nrst_pt[0], nrst_pt[1]]], columns=["id", "lat", "lon"])
 
 df = pd.read_csv(filepath_or_buffer="data/test2.csv", names=["id", "lat", "lon"])
