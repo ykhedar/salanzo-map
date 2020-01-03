@@ -54,5 +54,5 @@ def create_map(curr_lat, curr_long, nrst_pt_df, df, pt_to_query_df):
         ])
 
 
-curr_lat, curr_long, nrst_pt_df, df, pt_to_query_df = generate_data_start(52.20472, 0.14056, location)
+curr_lat, curr_long, nrst_pt_df, df, pt_to_query_df = generate_data_start(51.1657, 10.4515, location)
 create_map(curr_lat, curr_long, nrst_pt_df, df, pt_to_query_df)
