@@ -2,8 +2,10 @@ import pandas as pd
 import streamlit as st
 import get_farmlands
 
+st.title("SALANZO-Map")
 
-location = st.slider('Point Number', 0, 100, 1)
+st.text("Green are potential Sites, Blue is current drone position and Red is nearest landing site.")
+location = st.slider('Drone WayPoint Number. Move me to move the drone.', 0, 100, 1)
 
 
 def get_current_position(lat1, lon1, loc):
@@ -35,7 +37,7 @@ def create_map(curr_lat, curr_long, nrst_pt_df, df, pt_to_query_df):
         {
         'type': 'ScatterplotLayer',
         'data': df,
-        'getFillColor':  [0, 0, 0],
+        'getFillColor':  [51, 153, 51],
         'opacity': 0.05,
         'getRadius': 150
        },
