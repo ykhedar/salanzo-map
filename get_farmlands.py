@@ -5,17 +5,17 @@ import requests
 import math
 
 
-def buildQuery(south, west, north, east):
+def build_query(south, west, north, east):
     overpass_url = "http://overpass-api.de/api/interpreter"
     overpass_query = "[out:json];way[\"landuse\"=\"farmland\"](" + str(south) + "," + str(west) + "," + str(
         north) + "," + str(east) + ");(._;>;);out center;"
     return overpass_url, overpass_query
 
 
-def getResponse(url, query):
+def get_csv_data(url, query):
     response = requests.get(url, params={'data': query})
     data = response.json()
-    return [{'id': i['id'], 'center': [i['center']['lat'], i['center']['lon']]} for i in data['elements'] if i['type'] == 'way']
+    return [{'id': i['id'], 'lat': i['center']['lat'], 'lon': i['center']['lon']} for i in data['elements'] if i['type'] == 'way']
 
 
 def getLongLat(bearing, distance, latitude, longitude, reqLatLon):
@@ -41,20 +41,6 @@ def getLongLat(bearing, distance, latitude, longitude, reqLatLon):
         return "false"
 
 
-def get_data(latitude, longitude):
-    south = getLongLat(180, 5, latitude, longitude, "lat")
-    west = getLongLat(270, 5, latitude, longitude, "lon")
-    north = getLongLat(0, 5, latitude, longitude, "lat")
-    east = getLongLat(90, 5, latitude, longitude, "lon")
-    if (south != 'false' and west != 'false' and north != 'false' and east != 'false'):
-        overpass_url, overpass_query = buildQuery(south, west, north, east)
-        data = getResponse(overpass_url, overpass_query)
-        return data
-    else:
-        print("returned south or west or north or east as false")
-        return False
-
-
 def json_to_csv(data):
     import csv
     # open a file for writing
@@ -68,7 +54,16 @@ def json_to_csv(data):
     employ_data.close()
 
 
-data = get_data(52.20472, 0.14056)
-json_to_csv(data)
-print(type(data), len(data))
-print(data)
+def get_data(latitude, longitude):
+    south = getLongLat(180, 5, latitude, longitude, "lat")
+    west = getLongLat(270, 5, latitude, longitude, "lon")
+    north = getLongLat(0, 5, latitude, longitude, "lat")
+    east = getLongLat(90, 5, latitude, longitude, "lon")
+    if south != 'false' and west != 'false' and north != 'false' and east != 'false':
+        overpass_url, overpass_query = build_query(south, west, north, east)
+        data = get_csv_data(overpass_url, overpass_query)
+        json_to_csv(data)
+        return data
+    else:
+        print("returned south or west or north or east as false")
+        return False

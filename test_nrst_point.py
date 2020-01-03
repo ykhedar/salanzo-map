@@ -4,8 +4,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-
-# Generate random x,y points
 from scipy.spatial import KDTree
 
 
@@ -20,7 +18,7 @@ def read_test_file(filename):
     data = np.loadtxt(fname=filename, delimiter=",")
     print(type(data), data.shape)
     print(data)
-    return data[:, 1:3], data.shape[0]
+    return data[:, 1:], data.shape[0]
 
 
 def plot_points(all_points, pt_to_query, nrst_pt, radius):
@@ -69,4 +67,4 @@ def main():
     plot_points(pts, pt_to_query, nrst_pt, RADIUS)
 
 
-main()
+#main()
