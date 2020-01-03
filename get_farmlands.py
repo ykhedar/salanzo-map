@@ -3,6 +3,7 @@
 
 import requests
 import math
+from rtree import index
 
 
 def build_query(south, west, north, east):
@@ -67,3 +68,15 @@ def get_data(latitude, longitude):
     else:
         print("returned south or west or north or east as false")
         return False
+
+
+def get_nearest_point(latitude, longitude):
+    data = get_data(latitude, longitude)
+
+    idx = index.Index()
+    for d in data:
+        idx.insert(d['id'], [d['lat'], d['lon']])
+
+    id_new = list(idx.nearest([latitude, longitude], 1))
+
+    return [[i['lat'], i['lon']] for i in data if i['id'] in id_new][0]

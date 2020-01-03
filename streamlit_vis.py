@@ -1,19 +1,19 @@
 import pandas as pd
 import numpy as np
 import streamlit as st
-import get_nearest_pnt
+import get_farmlands
 
 
 def get_current_position():
-    lat_ = 52.20472 + np.random.random_sample()/10
-    lon_ = 0.14056 + np.random.random_sample()/10
+    lat_ = 52.20472 + np.random.random_sample()/5
+    lon_ = 0.14056 + np.random.random_sample()/5
     return lat_, lon_
 
 
 # Read the csv file into a pandas data frame
 curr_lat, curr_long = get_current_position()
 
-nrst_pt = get_nearest_pnt.get_nearest_point(curr_lat, curr_long)
+nrst_pt = get_farmlands.get_nearest_point(curr_lat, curr_long)
 nrst_pt_df = pd.DataFrame([[1, nrst_pt[0], nrst_pt[1]]], columns=["id", "lat", "lon"])
 
 df = pd.read_csv(filepath_or_buffer="data/test2.csv", names=["id", "lat", "lon"])
