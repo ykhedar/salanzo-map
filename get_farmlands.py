@@ -57,10 +57,10 @@ def json_to_csv(data):
 
 
 def get_data(latitude, longitude):
-    south = getLongLat(180, 5, latitude, longitude, "lat")
-    west = getLongLat(270, 5, latitude, longitude, "lon")
-    north = getLongLat(0, 5, latitude, longitude, "lat")
-    east = getLongLat(90, 5, latitude, longitude, "lon")
+    south = getLongLat(180, 10, latitude, longitude, "lat")
+    west = getLongLat(270, 10, latitude, longitude, "lon")
+    north = getLongLat(0, 10, latitude, longitude, "lat")
+    east = getLongLat(90, 10, latitude, longitude, "lon")
     if south != 'false' and west != 'false' and north != 'false' and east != 'false':
         overpass_url, overpass_query = build_query(south, west, north, east)
         data = get_csv_data(overpass_url, overpass_query)
