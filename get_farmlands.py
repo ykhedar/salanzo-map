@@ -9,6 +9,7 @@ import csv
 
 def build_query(south, west, north, east):
     overpass_url = "http://overpass-api.de/api/interpreter"
+    #overpass_url = "http://192.168.0.14:12345/api/interpreter"
     overpass_query = "[out:json];way[\"landuse\"=\"farmland\"](" + str(south) + "," + str(west) + "," + str(
         north) + "," + str(east) + ");(._;>;);out center;"
     return overpass_url, overpass_query
